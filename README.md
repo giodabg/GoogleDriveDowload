@@ -26,8 +26,9 @@ e poi
 
 e poi
 
-1. aprire il file 
+1. aprire il file NBGoogleDrive.java
 2. trovare l'istruzione nel main che chiama il metodo getGoogleFilesByIdDir("1zPYIo-Df3KxqVWZQcwGs7UhkBiUioCo_");
-3. sostituire la stringa con l'idi di una cartella presente nel proprio Google Drive (l'id è la sequenza alfanumerica presente in fondo all'url della pagina con cui si sta visualizzando il contenuto della propria cartella nel browser)
-4. eseguire il progrmma
+3. sostituire la stringa con l'id di una cartella presente nel proprio Google Drive (l'id è la sequenza alfanumerica presente in fondo all'url della pagina con cui si sta visualizzando il contenuto della propria cartella nel browser)
+4. il programam scarica solo file con estensione pdf per cui è necessario inserire qualche file nella cartella per testare il funzionamento
+4. eseguire il main associato al file NBGoogleDrive.java
 5. controllare il contenuto della cartella locale "C:\Windows\Users\<nome_utente>\TapSchoolDocuments"
