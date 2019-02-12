@@ -20,19 +20,25 @@ import com.google.api.services.drive.model.FileList;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class NBGoogleDrive {
 
+        // Directory to store downloade file for this application.
+    private static final java.io.File DOCUMENTS_FOLDER //
+            = new java.io.File(System.getProperty("user.home"), "TapSchoolDocuments");
+
 // com.google.api.services.drive.model.File
-    public static final List<File> getGoogleFilesByName(String fileNameLike) throws IOException {
+    public static final List<File> getGoogleFilesByIdDir(String idGoogleDirectory) throws IOException {
         
         Drive driveService = GoogleDriveUtils.getDriveService();
         
         String pageToken = null;
         List<File> list = new ArrayList<File>();
         
-        String query = " name contains '" + fileNameLike + "' " //
-                + " and mimeType != 'application/vnd.google-apps.folder' ";
+        String query = " '"+idGoogleDirectory+"' in parents " //
+                + " and mimeType contains 'application/pdf' ";
         
         do {
             FileList result = driveService.files().list().setQ(query).setSpaces("drive") //
@@ -44,7 +50,8 @@ public class NBGoogleDrive {
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                 driveService.files().get(file.getId())
                         .executeMediaAndDownloadTo(outputStream);
-                FileOutputStream fos = new FileOutputStream("Documents\\"+file.getName()); 
+                String pathNameFile = DOCUMENTS_FOLDER.getAbsolutePath()+"\\"+file.getName();
+                FileOutputStream fos = new FileOutputStream(pathNameFile); 
                 outputStream.writeTo(fos);
 
             }
@@ -57,16 +64,20 @@ public class NBGoogleDrive {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException {
-        // TODO code application logic here
-        
-        List<File> rootGoogleFolders = getGoogleFilesByName("pdf");
-        for (File folder : rootGoogleFolders) {
+    public static void main(String[] args) {
+        try {
+            // TODO code application logic here
             
-            System.out.println("Mime Type: " + folder.getMimeType() + " --- Name: " + folder.getName());
+            List<File> rootGoogleFolders = getGoogleFilesByIdDir("1zPYIo-Df3KxqVWZQcwGs7UhkBiUioCo_");
+            for (File folder : rootGoogleFolders) {
+                
+                System.out.println("Mime Type: " + folder.getMimeType() + " --- Name: " + folder.getName());
+            }
+            
+            System.out.println("Done!");
+        } catch (IOException ex) {
+            Logger.getLogger(NBGoogleDrive.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        System.out.println("Done!");
     }
     
 }

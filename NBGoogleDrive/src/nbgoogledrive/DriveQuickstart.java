@@ -46,6 +46,11 @@ public class DriveQuickstart {
 
     private static final String CLIENT_SECRET_FILE_NAME = "client_secret.json";
 
+    // Directory to store downloade file for this application.
+    private static final java.io.File DOCUMENTS_FOLDER //
+            = new java.io.File(System.getProperty("user.home"), "TapSchoolDocuments");
+    
+    
     //
     // Global instance of the scopes required by this quickstart. If modifying these
     // scopes, delete your previously saved credentials/ folder.
@@ -75,6 +80,15 @@ public class DriveQuickstart {
     }
 
     public static void main(String... args) throws IOException, GeneralSecurityException {
+
+        System.out.println("DOCUMENTS FOLDER: " + DOCUMENTS_FOLDER.getAbsolutePath());
+
+        // 1: Create CREDENTIALS_FOLDER
+        if (!DOCUMENTS_FOLDER.exists()) {
+            DOCUMENTS_FOLDER.mkdirs();
+
+            System.out.println("Created Folder: " + DOCUMENTS_FOLDER.getAbsolutePath());
+        }
 
         System.out.println("CREDENTIALS_FOLDER: " + CREDENTIALS_FOLDER.getAbsolutePath());
 
