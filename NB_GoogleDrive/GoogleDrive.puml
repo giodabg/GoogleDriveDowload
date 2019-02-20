@@ -1,0 +1,30 @@
+@startuml
+' https://developers.google.com/identity/protocols/OAuth2
+actor Utente
+participant GUI
+participant Core
+participant Pdf2XML
+participant parseXML
+participant XML2CSV
+participant "Google Auth Server" as GoogleAuth
+participant "Google Drive Server" as GoogleDrive
+
+
+Utente -> Core: start
+autonumber
+Core -> GoogleAuth: request token
+Utente -> GoogleAuth: User login & consent
+GoogleAuth --> Core: Authentication code
+Core -> GoogleAuth: Exchange code for token
+GoogleAuth --> Core: token
+Core -> GoogleDrive: Use token to call GoogleDriveAPI list files
+GoogleDrive --> Core: list of files
+Core -> GoogleDrive: Use token to call GoogleDriveAPI download file
+GoogleDrive --> Core: file content
+Core -> Pdf2XML: convert pdf to XML
+Core -> parseXML: parse XML and extract events info
+Core -> XML2CSV: salva file in formato CSV
+Core -> GoogleDrive: Use token to call GoogleDriveAPI upload file
+Core -> GUI: end message
+autonumber stop
+@enduml
