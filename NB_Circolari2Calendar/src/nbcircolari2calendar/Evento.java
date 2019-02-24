@@ -28,7 +28,7 @@ public class Evento {
         map.put("descrizione", "");
     }
 
-    public Evento(String calendario, String giorno, String mese, String anno, String oraInizio, 
+    public Evento(String calendario, String giorno, String mese, String anno, String oraInizio,
             String oraFine, String descrizione) {
         map = new HashMap<String, String>();
         map.put("calendario", calendario);
@@ -40,7 +40,16 @@ public class Evento {
         map.put("descrizione", descrizione);
     }
 
-    public void setEvento(String calendario, String giorno, String mese, String anno, String oraInizio, 
+    public Evento(Evento eventOld) {
+        map = new HashMap<String, String>();
+        Iterator<String> itrK = eventOld.map.keySet().iterator();
+        Iterator<String> itrV = eventOld.map.values().iterator();
+        while (itrK.hasNext()) {
+            map.put(itrK.next(), itrV.next());
+        }
+    }
+
+    public void setEvento(String calendario, String giorno, String mese, String anno, String oraInizio,
             String oraFine, String descrizione) {
         map.replace("calendario", calendario);
         map.replace("giorno", giorno);
@@ -50,7 +59,7 @@ public class Evento {
         map.replace("oraFine", oraFine);
         map.replace("descrizione", descrizione);
     }
-        
+
     public String getCalendario() {
         return map.get("calendario");
     }
@@ -66,7 +75,7 @@ public class Evento {
     public void setGiorno(String giorno) {
         map.replace("giorno", giorno);
     }
-    
+
     public String getMese() {
         return map.get("mese");
     }
@@ -86,6 +95,7 @@ public class Evento {
     public String getOraInizio() {
         return map.get("oraInizio");
     }
+
     public void setOraInizio(String oraInizio) {
         map.replace("oraInizio", oraInizio);
     }
@@ -93,7 +103,7 @@ public class Evento {
     public String getOraFine() {
         return map.get("oraFine");
     }
-    
+
     public void setOraFine(String oraFine) {
         map.replace("oraFine", oraFine);
     }
@@ -101,7 +111,7 @@ public class Evento {
     public String getDescrizione() {
         return map.get("descrizione");
     }
-    
+
     public void setDescrizione(String descrizione) {
         map.replace("descrizione", descrizione);
     }
@@ -109,14 +119,15 @@ public class Evento {
     public String getGenericInfo(String name) {
         return map.get(name);
     }
-    
+
     public void setGenericInfo(String name, String value) {
-        if (getGenericInfo(name) != null)
+        if (getGenericInfo(name) != null) {
             map.replace(name, value);
-        else
+        } else {
             map.put(name, value);
+        }
     }
-    
+
     public String toCSV() {
         // return "Evento{" + "titolo=" + titolo + ", Descrizione=" + giorno + ", orarioDocenti=" + orarioDocenti + ", orarioStudenti=" + orarioStudenti + '}';
         return (getCalendario()
@@ -126,16 +137,16 @@ public class Evento {
                 + ";" + getOraFine());
 
     }
-    
+
     public String toString() {
         String str = "";
         Iterator<String> itrK = map.keySet().iterator();
         Iterator<String> itrV = map.values().iterator();
-	while (itrK.hasNext()) {
-		str += (";"+itrK.next()+":"+itrV.next());
-	}
+        while (itrK.hasNext()) {
+            str += (";" + itrK.next() + ":" + itrV.next());
+        }
         return str;
         //return map.values().toString();
     }
-    
+
 }

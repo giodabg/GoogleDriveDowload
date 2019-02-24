@@ -23,16 +23,16 @@ public class ControlloTabelle {
     public static final String REGEX_WORD = "([^\\s ]*)";
     public static final String REGEX_LINE = "(.*)";
     public static final String REGEX_ORAIN_ORAFIN = "([^\\s ]*)/([^\\s ]*)";
-    
+
     public static final String[] regExpTabHeaderConsigli = {"[^\\s\\d]*\\s([\\d]*)\\s(\\w*)"};
-        public static final String[] interTabHeaderConsigli = "giorno:mese".split(":");
+    public static final String[] interTabHeaderConsigli = "giorno:mese".split(":");
 
     public static final String[] regExpTabSubHeaderConsigli = {REGEX_LINE, REGEX_LINE, REGEX_LINE};
     public static final String[] interTabSubHeaderConsigli = "descrizione1:descrizione2:descrizione3".split(":");
 
     public static final String[] regExpTabBodyConsigli = {REGEX_ORAIN_ORAFIN, REGEX_ORAIN_ORAFIN, REGEX_WORD, REGEX_WORD, REGEX_WORD};
     public static final String[] interTabBodyConsigli = "oraInizio1:oraFine1:oraInizio2:oraFine2:classe1:classe2:classe3".split(":");
-    
+
     public static final String[] interTabFooterConsigli = "descrizione:luogo1:luogo2:luogo3".split(":");
 
     public static final String tableTag = "Table";
@@ -91,15 +91,15 @@ public class ControlloTabelle {
                 // trovati partono dall'indice 1
                 if (ControlloTabelle.interTabBodyConsigli[numInfo].equals("classe1")) {
                     String calendario = m.group(g + 1);
-                    String descrizione = infoEvento.getGenericInfo("descrizione");
-                    descrizione +=  " "+infoEvento.getGenericInfo("descrizione1");
-                    String oraInizio = infoEvento.getGenericInfo("oraInizio1");
-                    String oraFine = infoEvento.getGenericInfo("oraFine1");
-                    Evento evento = new Evento(calendario, infoEvento.getGiorno(), 
-                            infoEvento.getMese(), infoEvento.getAnno(),
-                            oraInizio, oraFine, descrizione);
-                    vettoreConsigli.add(evento);
+                    creaEventi(vettoreConsigli, calendario, infoEvento);
+                } else if (ControlloTabelle.interTabBodyConsigli[numInfo].equals("classe2")) {
+                    String calendario = m.group(g + 1);
+                    creaEventi(vettoreConsigli, calendario, infoEvento);
+                } else if (ControlloTabelle.interTabBodyConsigli[numInfo].equals("classe3")) {
+                    String calendario = m.group(g + 1);
+                    creaEventi(vettoreConsigli, calendario, infoEvento);
                 }
+
                 infoEvento.setGenericInfo(interTabBodyConsigli[numInfo], m.group(g + 1));
                 numInfo++;
             }
@@ -107,4 +107,28 @@ public class ControlloTabelle {
         return numInfo;
     }
 
+    private static void creaEventi(Eventi vettoreConsigli, String calendario, Evento infoEvento) {
+        Evento evento = createEvento(infoEvento, calendario, "descrizione1",
+                "oraInizio1", "oraFine1");
+        vettoreConsigli.add(evento);
+
+        evento = createEvento(infoEvento, calendario, "descrizione2",
+                "oraInizio2", "oraFine2");
+        vettoreConsigli.add(evento);
+
+    }
+
+    private static Evento createEvento(Evento infoEvento, String calendario, String kdescrizione,
+            String koraInizio, String koraFine) {
+
+        String descrizione = infoEvento.getGenericInfo("descrizione");
+        descrizione += " " + infoEvento.getGenericInfo(kdescrizione);
+        String oraInizio = infoEvento.getGenericInfo(koraInizio);
+        String oraFine = infoEvento.getGenericInfo(koraFine);
+        Evento evento = new Evento(calendario, infoEvento.getGiorno(),
+                infoEvento.getMese(), infoEvento.getAnno(),
+                oraInizio, oraFine, descrizione);
+        return evento;
+
+    }
 }

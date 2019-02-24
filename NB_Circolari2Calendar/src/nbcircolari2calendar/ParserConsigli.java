@@ -105,15 +105,15 @@ public class ParserConsigli {
         }
     }
 
-    private void parseTableBodyConsigli(Eventi vettoreConsigli, Evento infoEventoOrig, Element root) {
+    private void parseTableBodyConsigli(Eventi vettoreConsigli, Evento infoEvento, Element root) {
         String info = "";
+        //Evento infoEvento = new Event(infoEventoOrig);
         NodeList nodeList = root.getElementsByTagName(ControlloTabelle.cellTag);
         if (nodeList != null) {
             String str = "";
             int numInfo = 0;
             for (int col = 0; col < nodeList.getLength() && col < ControlloTabelle.regExpTabBodyConsigli.length; col++) {
                 str = getTextValue((Element) nodeList.item(col), ControlloTabelle.contentTag);
-                Evento infoEvento = new Event(infoEventoOrig);
                 numInfo = ControlloTabelle.interTabBodyConsigli(vettoreConsigli, infoEvento, numInfo, str, col);
                 System.out.println("\ninfoEvento");
                 System.out.println(infoEvento.toString());
