@@ -9,7 +9,7 @@ import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
 /**
- * @author figini_davide
+ * @author scuola
  *
  */
 public class ParserConsigli {
