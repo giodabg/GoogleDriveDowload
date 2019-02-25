@@ -71,9 +71,9 @@ public class ParserConsigli {
 
             }
         }
-        System.out.println("parseTable");
-        System.out.println("vettoreConsigli");
-        System.out.println(vettoreConsigli.toString());
+        // System.out.println("parseTable");
+        // System.out.println("vettoreConsigli");
+        // System.out.println(vettoreConsigli.toString());
         return vettoreConsigli;
     }
 
@@ -85,8 +85,8 @@ public class ParserConsigli {
             for (int col = 0; col < nodeList.getLength() && col < ControlloTabelle.regExpTabHeaderConsigli.length; col++) {
                 str = getTextValue((Element) nodeList.item(col), ControlloTabelle.contentTag);
                 ControlloTabelle.interpHeaderConsigli(evento, col, str);
-                System.out.println("parseTableHeaderConsigli");
-                System.out.println(evento.toString());
+                // System.out.println("parseTableHeaderConsigli");
+                // System.out.println(evento.toString());
             }
         }
     }
@@ -100,8 +100,8 @@ public class ParserConsigli {
                 str = getTextValue((Element) nodeList.item(col), ControlloTabelle.contentTag);
                 numInfo = ControlloTabelle.interTabSubHeaderConsigli(evento, numInfo, str, col);
             }
-            System.out.println("parseTableSubHeaderConsigli");
-            System.out.println(evento.toString());
+            // System.out.println("parseTableSubHeaderConsigli");
+            // System.out.println(evento.toString());
         }
     }
 
@@ -115,8 +115,8 @@ public class ParserConsigli {
             for (int col = 0; col < nodeList.getLength() && col < ControlloTabelle.regExpTabBodyConsigli.length; col++) {
                 str = getTextValue((Element) nodeList.item(col), ControlloTabelle.contentTag);
                 numInfo = ControlloTabelle.interTabBodyConsigli(vettoreConsigli, infoEvento, numInfo, str, col);
-                System.out.println("\ninfoEvento");
-                System.out.println(infoEvento.toString());
+                // System.out.println("\ninfoEvento");
+                // System.out.println(infoEvento.toString());
             }
         }
     }

@@ -17,12 +17,14 @@ import org.w3c.dom.NodeList;
 public class ControlloTabelle {
 
     public static int CONSIGLI_CLASSE = 0;
+    public static int PROGETTO_SESSUALITA = 1;
 
     // https://www.tutorialspoint.com/java/java_regular_expressions.htm
     // parola seguita da numero seguita da parola
     public static final String REGEX_WORD = "([^\\s ]*)";
     public static final String REGEX_LINE = "(.*)";
     public static final String REGEX_ORAIN_ORAFIN = "([^\\s ]*)/([^\\s ]*)";
+    public static final String REGEX_ORAIN_ORAFIN1 = "([^\\s ]*) - ([^\\s ]*)";
 
     public static final String[] regExpTabHeaderConsigli = {"[^\\s\\d]*\\s([\\d]*)\\s(\\w*)"};
     public static final String[] interTabHeaderConsigli = "giorno:mese".split(":");
@@ -34,6 +36,9 @@ public class ControlloTabelle {
     public static final String[] interTabBodyConsigli = "oraInizio1:oraFine1:oraInizio2:oraFine2:classe1:classe2:classe3".split(":");
 
     public static final String[] interTabFooterConsigli = "descrizione:luogo1:luogo2:luogo3".split(":");
+
+    public static final String[] regExpTabHeaderProgetto = {REGEX_WORD, REGEX_ORAIN_ORAFIN1, REGEX_ORAIN_ORAFIN1};
+    public static final String[] interTabHeaderProgetto = "descrizione:oraInizio1:oraFine1:oraInizio2:oraFine2".split(":");
 
     public static final String tableTag = "Table";
     public static final String rowTag = "TR";
